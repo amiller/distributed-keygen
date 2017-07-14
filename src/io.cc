@@ -29,7 +29,7 @@ void hexdump(FILE *f, const string &s)
     }
 }
 
-void write_ui(string &body, size_t v)
+void write_ui(string &body, unsigned int v)
 {
     unsigned char buf[4];
     buf[0] = (v >> 24) & 0xff;
@@ -39,7 +39,7 @@ void write_ui(string &body, size_t v)
     body.append((char *)buf, 4);
 }
 
-void read_ui(const unsigned char *&buf, size_t &len, size_t &v)
+void read_ui(const unsigned char *&buf, size_t &len, unsigned int &v)
 {
     if (len < 4) throw InvalidMessageException();
     v = (buf[0] << 24) | (buf[1] << 16) | (buf[2] << 8) | buf[3];

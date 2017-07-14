@@ -1,7 +1,8 @@
 SRCS=$(wildcard *.cc)
 OBJS=$(subst .cc,.o,$(SRCS))
 
-CXXFLAGS=-m32 -g -O0 -Wall -I..
+#CXXFLAGS=-m32 -g -O0 -Wall -I..
+CXXFLAGS=-g -O0 -Wall -I..
 
 all: node BLSclient
 
@@ -10,21 +11,21 @@ COMMON_OBJS=application.o networkmessage.o usermessage.o buddy.o \
 		commitment.o commitmentmatrix.o commitmentvector.o io.o timer.o message.o
 
 node: node.o $(COMMON_OBJS)
-	g++ -m32 -g -static -o $@ $^ -L../PBC -lPBC -lpthread -lgnutls -lpbc -lgmp -lgcrypt -lgpg-error -ltasn1 -lz
+	g++ -g -o $@ $^ -L../PBC -lPBC -lpthread -lgnutls -lpbc -lgmp -lgcrypt -lgpg-error -ltasn1 -lz
 
 BLSclient: blsclient.o $(COMMON_OBJS)
-	g++ -m32 -g -static -o $@ $^ -L../PBC -lPBC -lpthread -lgnutls -lpbc -lgmp -lgcrypt -lgpg-error -ltasn1 -lz
+	g++ -g -o $@ $^ -L../PBC -lPBC -lpthread -lgnutls -lpbc -lgmp -lgcrypt -lgpg-error -ltasn1 -lz
 
 polytest: polytest.o bipolynomial.o polynomial.o lagrange.o systemparam.o
-	g++ -m32 -g -o $@ $^ -L../PBC -lPBC -lpthread -lgnutls -lpbc
+	g++ g -o $@ $^ -L../PBC -lPBC -lpthread -lgnutls -lpbc
 
 commitmentmatrix:  commitmentmatrix.o bipolynomial.o polynomial.o io.o \
 	systemparam.o lagrange.o
-	g++ -m32 -g -o $@ $^ -L../PBC -lPBC -lpthread -lgnutls -lpbc
+	g++ -g -o $@ $^ -L../PBC -lPBC -lpthread -lgnutls -lpbc
 
 commitmentvector:  commitmentvector.o bipolynomial.o polynomial.o io.o \
 	systemparam.o lagrange.o
-	g++ -m32 -g -o $@ $^ -L../PBC -lPBC -lpthread -lgnutls -lpbc
+	g++ -g -o $@ $^ -L../PBC -lPBC -lpthread -lgnutls -lpbc
 
 clean:
 	-rm -f $(OBJS)

@@ -24,6 +24,7 @@
 #include <sys/time.h>
 #include <sys/resource.h>
 #include <iomanip>
+#include <unistd.h>
 #include "application.h"
 #include "usermessage.h"
 #include "networkmessage.h"

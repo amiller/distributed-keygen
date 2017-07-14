@@ -160,7 +160,7 @@ VSSEchoMessage:: VSSEchoMessage(NodeID dealer,Phase ph,	const Commitment& C, con
 VSSEchoMessage::VSSEchoMessage(const Buddy *buddy, const string &str, int g_recv_ID) 
   : NetworkMessage(str){
   const unsigned char *bodyptr = (const unsigned char *)str.data() + headerLength;
-  unsigned int bodylen = str.size() - headerLength;
+  size_t bodylen = str.size() - headerLength;
   read_us(bodyptr, bodylen, dealer);
   read_ui(bodyptr, bodylen, ph);
   C = Commitment(buddy->get_param(), bodyptr, bodylen);
@@ -274,7 +274,7 @@ VSSSharedMessage::VSSSharedMessage(const Buddy *buddy, const string &str, int g_
 	read_ui(bodyptr, bodylen, ph);
 	read_us(bodyptr, bodylen,dealer);
 	//Read ReadyMessage	
-	size_t length; 
+	unsigned int length; 
     	read_ui(bodyptr,bodylen,length);
 	
 	const unsigned char *signstart = bodyptr;

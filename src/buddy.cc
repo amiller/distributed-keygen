@@ -25,6 +25,7 @@
 #include <stdlib.h>
 #include <fstream>
 #include <iomanip>
+#include <unistd.h>
 #include "buddyset.h"
 #include "buddy.h"
 
