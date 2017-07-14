@@ -1,0 +1,10 @@
+plink.cs.uwaterloo.ca
+planetlab-1.usask.ca
+planet1.cc.gt.atl.ga.us
+pl1.planetlab.uvic.ca
+ricepl-1.cs.rice.edu
+pl1.pku.edu.cn
+planetlab-1.pdl.nudt.edu.cn
+planetlab1.tmit.bme.hu
+planetlab1.engr.uconn.edu
+planetlab1.mini.pw.edu.pl

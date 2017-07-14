@@ -1,0 +1,11 @@
+Distributed Key Generator credits
+
+Aniket Kate <aniket at mpi-sws dot org> (Main author)
+
+Andy Huang <y226huan at uwaterloo dot ca>
+    Efficiency Improvement
+    Fixing Synchronization Bugs
+
+Ian Goldberg <iang at uwaterloo dot ca>
+    Suggestions for efficiency improvement
+    Technical support in C++ programming

@@ -1,0 +1,11 @@
+The executable file 'monitor' is a convenient way to run a batch of test.
+
+USAGE: ./monitor
+
+The configuration file 'monitor.conf' should be configured properly before running the monitor.
+
+After deploying 'certs' and 'node_[version_number]' to the nodes that will participate the procotol, one can specify the test cases she wishes to run in the file 'testcases' with the following format:
+
+n t f non-responsive-nodes number_of_trials
+
+The 'non-responsive-nodes' parameter specifies the number of nodes that will not act properly as a leader, thus provides a way to test the timeout function. For example, if 'non-responsive-nodes == 2', then node #1 and node #2 will not send out DKG messages for agreement.

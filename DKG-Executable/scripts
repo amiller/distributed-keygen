@@ -1,0 +1,89 @@
+scp node uwaterloo_dkg@142.150.3.78:DKG-Executable/&
+scp node uwaterloo_dkg@142.150.238.12:DKG-Executable/&
+scp node uwaterloo_dkg@129.97.74.12:DKG-Executable/&
+scp node uwaterloo_dkg@142.104.21.245:DKG-Executable/&
+
+http://comon.cs.princeton.edu/status/tabulator.cgi?table=table_nodeviewshort&
+sort=2&select=%27TimerMax%3C%20200%20&&%20cpuspeed%3E%202.1&&%201%20%3E%20resptime%20%3E%200%20&&%20
+((drift%20%3E%201m%20||%20(dns1udp%20%3E%2080%20&&%20dns2udp%20%3E%2080%20)%20||(%20dns2tcp%20%3E80%20&&%20dns1tcp%20%3E%2080%20)%20||%20gbfree%20%3C%205%20||%20sshstatus%20%3E%202h)%20==%200)%27
+
+http://comon.cs.princeton.edu/status/tabulator.cgi?table=table_nodeviewshort&format=nameonly&persite=1&select='resptime > 0 && ((drift > 1m || (dns1udp > 80 && dns2udp > 80) || gbfree < 5 || sshstatus > 2h) == 0)
+
+http://comon.cs.princeton.edu/status/tabulator.cgi?table=table_nodeviewshort&format=formatcsv&dumpcols='location'&persite=1&
+select='resptime > 0 && ((drift > 1m || (dns1udp > 80 && dns2udp > 80) || gbfree < 5 || sshstatus > 2h) == 0)
+
+-------------------------------------------------------
+for i in `cat nodes.txt`
+do
+        host $i >> file;
+done
+
+-------------------------------------------------------
+Making contlist
+for i in `cat used.txt`; do  host $i; done >> tmp
+cat tmp| grep has | awk '{ split($(NF),fields," "); print ++count " " $4 " 9900 certs/" count ".pem";}' > contlist
+
+
+for i in `cat added.txt`; do echo $i; scp node uwaterloo_dkg@$i:.;  done
+
+-------------------------------------------------------
+Sending files to all the nodes in the system
+all files/directories to be transfered: comand line
+
+send.sh
+
+cat contlist | awk '{ split($(NF),fields," ");print $2;}' > tmp
+for i in `cat tmp`
+do
+	echo "scp -r $@ uwaterloo_dkg@$i:"
+usdone
+
+-------------------------------------------------------
+Running the node
+
+cat contlist | awk '{ split($(NF),fields," ");print $2;}' > IP
+cnt=0
+for i in `cat IP`
+do
+  let cnt=cnt+1
+
+	ssh uwaterloo_dkg@$i './node 9900 certs/$cnt.pem certs/$cnt-key.pem contlist 0'
+done
+
+
+------------------------------------------------------
+Removal
+for i in `cat used.txt`; do ssh uwaterloo_dkg@$i 'killall node;rm message.log dkg.log'; done
+  	
+
+-------------------------------------------------------
+Collecting log files from the nodes
+directory name: Command line parameter
+
+log.sh
+
+cat contlist | awk '{ split($(NF),fields," ");print $2;}' > IP
+mkdir $@
+cnt=0
+for i in `cat IP`
+do
+	scp -r uwaterloo_dkg@$i:dkg.log $@/$i.log
+	ssh uwaterloo_dkg@$i rm dkg.log
+done
+
+
+-------------------------------------------------------
+To Generate Certificates
+for i in `seq 12 200`
+do 
+./gen_cert $i;
+done
+
+
+
+for i in `ps aux | grep DPKG | grep kpdf | awk '{ split($(NF),fields," ");print $2;}' `; do kill $i; done
+
+for i in `cat IP`
+do
+ssh uwaterloo_dkg@$i "for j in `ps aux | grep contlist | awk '{ split($(NF),fields," ");print $2;}'`;do kill $j; done"  
+done

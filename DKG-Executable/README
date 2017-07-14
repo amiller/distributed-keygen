@@ -1,0 +1,49 @@
+DISTRIBUTED KEY GENERATOR (DKG)
+
++++++++++++++++++
+Preparatory Steps
++++++++++++++++++
+
+1. Include all the received certificate and the node's private key in "../certs" 
+
+2. Include NodeID, IP address, port and the leader information in "contlist"
+Format:
+<NodeID>space<IP Address>space<Port>[<space>L]
+
+Note that [<space>L] is present only for the current leader. If no node is marked with " L", the first node become the default leader
+
+3. To start a DKG node, type 
+./launch contlist <If all nodes are on the same machine>
+./node [PortNumber] [Public Key File] [Private Key File] [Contact List File] [phase] [CommitmentType 0/1] [Non-responsive-leaders x]
+
+4. Put 0 for the system phase asked if you are starting from the scratch.
+If any number > 0 is provided, it is assumed that the node in under recovery
+
+5. CommitmentType: 0 = Feldman_Matrix ; 1 = Feldman_Vector
+
+6. timeout.value tells the nodes how long the protocol is supposed to run in an average case for different parameters, which is a historical hint for the timeout function. For parameters not specified in the file, a node will decide the timeout value depending on what it has seen so far in the current execution of the protocol.
+
++++++++++++++++++++++++
+Main Interface Commands
++++++++++++++++++++++++
+
+ping <NodeID> 			: Send a signed ping message to the node <NodeID>
+
+share		  			: share the current secret share (phase > 0) or a random secret (phase = 0)
+
+recover		  			: recover after the node is rebooted
+
+print <parameter>  	: print value for <parameter>. List is as follows.
+							id : ID for this node (selfID)
+							 n : total number of nodes
+							 t : threshold limit
+							 f : crash-recovery and link failure limit
+							 U : Group Generator for commitments
+						 state : state of the node 
+							{UNDER_RECOVERY, FUNCTIONAL, AGREEMENT_STARTED, AGREEMENT_COMPLETED, LEADER_CHANGE_STARTED, DKG_COMPLETED}
+						 phase : current phase of the node
+						leader : current leader of the system
+						 share : node's current share
+				 confirmLeader : send a leader change message for the first leader (ph = 0)
+			  commitmentMatrix : commitment matrix associated with the current share
+				   activeNodes : list of currently active nodes (size n)
