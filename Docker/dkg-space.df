@@ -40,12 +40,13 @@ RUN mkdir PBC && wget -P /tmp https://crypto.stanford.edu/pbc/files/pbc-0.5.14.t
   make install
 
 # The user is root, but put not putting in the root directory
-RUN cd ~ && git clone https://github.com/amiller/distributed-keygen.git   && \
-  cd distributed-keygen/src && \
-  make clean && \
-  make
+RUN cd ~ && git clone https://github.com/amiller/distributed-keygen.git 
+#  && \
+#  cd distributed-keygen/src && \
+#  make clean && \
+#  make
 
-WORKDIR /root/DKG
+WORKDIR /root/distributed-keygen
 
 RUN echo "Base DKG image complete"
 
