@@ -1,7 +1,9 @@
 
 # Base image for creating DKG-Distributed Key Generation
-
-FROM ubuntu:trusty
+#  select which ubuntu release you want and comment out the other
+#
+# FROM ubuntu:trusty
+FROM ubuntu:xenial
 
 RUN apt-get update && \
   apt-get install -y git apt-utils curl tree wget flex bison nano
@@ -40,11 +42,11 @@ RUN mkdir PBC && wget -P /tmp https://crypto.stanford.edu/pbc/files/pbc-0.5.14.t
   make install
 
 # The user is root, but put not putting in the root directory
-RUN cd ~ && git clone https://github.com/amiller/distributed-keygen.git 
-#  && \
-#  cd distributed-keygen/src && \
-#  make clean && \
-#  make
+## RUN cd ~ && git clone https://github.com/amiller/distributed-keygen.git   && \
+RUN cd ~ && git clone https://github.com/RJAugust/distributed-keygen.git   && \
+  cd distributed-keygen/src && \
+  make clean && \
+  make
 
 WORKDIR /root/distributed-keygen
 
