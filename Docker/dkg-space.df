@@ -2,9 +2,9 @@
 # Base image for creating DKG-Distributed Key Generation
 #  select which ubuntu release you want and comment out the other
 #
-# FROM ubuntu:trusty
+FROM ubuntu:trusty
 #
-FROM ubuntu:xenial
+# FROM ubuntu:xenial
 
 RUN apt-get update && \
   apt-get install -y git apt-utils curl tree wget flex bison nano

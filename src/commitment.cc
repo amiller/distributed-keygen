@@ -147,5 +147,5 @@ void Commitment::dump(FILE *f, unsigned int indent) const{
 		hashedVector.dump(f,indent);
 	}
   fprintf(f, "%*s  echo message count = %lu\n", indent, "", A_Echo.size());
-  fprintf(f, "%*s  ready message count = %d\n", indent, "", A_Ready.size());
+  fprintf(f, "%*s  ready message count = %lu\n", indent, "", A_Ready.size());
 }
