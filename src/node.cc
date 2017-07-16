@@ -1221,6 +1221,19 @@ void Node::completeDKG(){
 				<< now.tv_sec << "." << setw(6) << now.tv_usec << " :)" <<endl;
 	//DecidedVSSs broadcast and decided VSSs are now completed
 	nodeState = DKG_COMPLETED;
+	result.share.dump(stderr,(char*)"Share is ",10);
+	FILE *fout = fopen("keys.out","w");
+	if (fout) {
+	  fprintf(fout, "Commitment is\n");
+	  result.C.dump(fout);
+	  for (int i = 0; i < sysparams.get_n() + 1; i++) {
+	    fprintf(fout, "\nPubkey %d:\n", i);
+	    G1 pubKeyShare = result.C.publicKeyShare(sysparams,i);
+	    pubKeyShare.dump(fout, "", 10);
+	  }
+	  result.share.dump(fout, "Share is ", 10);
+	  fclose(fout);
+	}
 	//fstream logFStream("dkg.log",ios::out); logFStream <<selfID<<" "<<buddyset.get_leader()<<" ";logFStream.close();
 	// Get performance measurements
 	measure_now();
