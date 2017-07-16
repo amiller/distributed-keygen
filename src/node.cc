@@ -275,7 +275,8 @@ int Node::run()
 		case ACTIVE_NODES:
 		  	cerr<<"Active Nodes are";
 			for(unsigned short i=0; i< activeNodes.size();++i)
-				cerr<<" "<<activeNodes[i];break;
+				cerr<<" "<<activeNodes[i];
+      break;
 		case NONE: default:
 		  	cerr<<"State Information Request: Not Well-Formatted";break;
 		}

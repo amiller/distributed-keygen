@@ -217,7 +217,7 @@ int Buddy::read_messagestr(string &msgstr) const
     unsigned char header[headerLength];
 
     size_t res = read_record(header, headerLength);
-    if (res < headerLength) return -1;
+    if (res < (unsigned int)headerLength) return -1;
 
     int lengthFieldStart = IDLength + typeLength;
     unsigned int len = (header[lengthFieldStart] << 24) + 

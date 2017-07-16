@@ -146,6 +146,6 @@ void Commitment::dump(FILE *f, unsigned int indent) const{
 		fprintf(f, "%*s  Feldman Vector\n", indent, "");
 		hashedVector.dump(f,indent);
 	}
-  fprintf(f, "%*s  echo message count = %d\n", indent, "", A_Echo.size());
-  fprintf(f, "%*s  ready message count = %d\n", indent, "", A_Ready.size());
+  fprintf(f, "%*s  echo message count = %lu\n", indent, "", A_Echo.size());
+  fprintf(f, "%*s  ready message count = %lu\n", indent, "", A_Ready.size());
 }

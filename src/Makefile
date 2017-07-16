@@ -2,7 +2,7 @@ SRCS=$(wildcard *.cc)
 OBJS=$(subst .cc,.o,$(SRCS))
 
 #CXXFLAGS=-m32 -g -O0 -Wall -I..
-CXXFLAGS=-g -O0 -Wall -I..
+CXXFLAGS=-g -O0 -Wall -I.. -D_GLIBCXX_USE_CXX11_ABI=1
 
 all: node BLSclient
 

@@ -2,7 +2,7 @@ SRCS=$(wildcard *.cc)
 OBJS=$(subst .cc,.o,$(SRCS))
 
 #CXXFLAGS=-m32 -g -O2 -Wall
-CXXFLAGS=-g -O2 -Wall
+CXXFLAGS=-g -O2 -Wall -D_GLIBCXX_USE_CXX11_ABI=1
 
 all: libPBC.a Testing
 
