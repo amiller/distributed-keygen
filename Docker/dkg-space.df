@@ -3,6 +3,7 @@
 #  select which ubuntu release you want and comment out the other
 #
 # FROM ubuntu:trusty
+#
 FROM ubuntu:xenial
 
 RUN apt-get update && \
@@ -44,7 +45,10 @@ RUN mkdir PBC && wget -P /tmp https://crypto.stanford.edu/pbc/files/pbc-0.5.14.t
 # The user is root, but put not putting in the root directory
 ## RUN cd ~ && git clone https://github.com/amiller/distributed-keygen.git   && \
 RUN cd ~ && git clone https://github.com/RJAugust/distributed-keygen.git   && \
-  cd distributed-keygen/src && \
+  cd ~/distributed-keygen/PBC && \
+  make clean && \
+  make && \
+  cd ~/distributed-keygen/src && \
   make clean && \
   make
 
